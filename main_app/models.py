@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Cat(models.Model):
     name = models.CharField(max_length=100)
@@ -8,5 +9,7 @@ class Cat(models.Model):
 
     def __str__(self):
         return self.name    
-
-
+    
+    def get_absolute_url(self):
+        # Use the 'reverse' function to dynamically find the URL for viewing this cat's details
+        return reverse('cat-detail', kwargs={'pk': self.id})
