@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from .models import Cat
+from .forms import FeedingForm
 
 # Create your views here.
 
@@ -19,6 +20,12 @@ class CatList(ListView):
 class CatDetail(DetailView):
   model = Cat
 
+  def get_context_data(self, **kwargs):
+     context = super().get_context_data(**kwargs)
+     context['feeding_form'] = FeedingForm()
+     return context
+
+
 class CatCreate(CreateView):
   model = Cat
   fields = '__all__'
@@ -31,3 +38,14 @@ class CatUpdate(UpdateView):
 class CatDelete(DeleteView):
     model = Cat
     success_url = reverse_lazy('cat-index')
+
+def add_feeding(request, pk):
+  form = FeedingForm(request.POST)
+  if form.is_valid():
+      new_feeding = form.save(commit=False)
+      new_feeding.cat_id = pk
+      new_feeding.save()
+    
+  return redirect('cat-detail',pk=pk)
+
+   
