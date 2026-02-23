@@ -43,7 +43,7 @@ DATABASES = {
 ```
 
 - Run initial migrations  
-  `python manage.py migrate`
+  `python3 manage.py migrate`
 
 ## Step 5: Create Django App
 
@@ -61,7 +61,7 @@ DATABASES = {
 ## Step 7: Create Superuser
 
 - Create admin user  
-  `python manage.py createsuperuser`
+  `python3 manage.py createsuperuser`
 - Login at `/admin`
 
 ---
@@ -77,12 +77,12 @@ DATABASES = {
 ## Step 9: Migrations
 
 - To check if migrations need to run
-  `python manage.py makemigrations --check`
+  `python3 manage.py makemigrations --check`
 
 - Create migrations  
-  `python manage.py makemigrations`
+  `python3 manage.py makemigrations`
 - Apply migrations  
-  `python manage.py migrate`
+  `python3 manage.py migrate`
 - Migrations update the database schema based on model changes
 
 ---
