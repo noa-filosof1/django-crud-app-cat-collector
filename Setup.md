@@ -119,5 +119,5 @@ DATABASES = {
 - Activate Virtual environment
 - Run `pipenv install`
 - Create your db with the same name as mentioned in settings
-- Run migrations
+- Run migrations `python manage.py migrate` only
 - Run server
