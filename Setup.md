@@ -121,3 +121,7 @@ DATABASES = {
 - Create your db with the same name as mentioned in settings
 - Run migrations `python manage.py migrate` only
 - Run server
+
+## Documentation:
+
+Built-in template tags and filters: https://docs.djangoproject.com/en/6.0/ref/templates/builtins/
