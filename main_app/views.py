@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from .models import Cat
+from .models import Cat, Toy
 from .forms import FeedingForm
 
 # Create your views here.
@@ -22,13 +22,16 @@ class CatDetail(DetailView):
 
   def get_context_data(self, **kwargs):
      context = super().get_context_data(**kwargs)
+     toys_cat_doesnt_have = Toy.objects.exclude(id__in = self.object.toys.all().values_list('id'))
      context['feeding_form'] = FeedingForm()
+     context['toys'] = toys_cat_doesnt_have
      return context
 
 
 class CatCreate(CreateView):
   model = Cat
-  fields = '__all__'
+  fields = ['name', 'breed', 'description', 'age']
+
 
 class CatUpdate(UpdateView):
     model = Cat
@@ -48,4 +51,31 @@ def add_feeding(request, pk):
     
   return redirect('cat-detail',pk=pk)
 
-   
+
+class ToyCreate(CreateView):
+  model = Toy
+  fields = '__all__'
+
+class ToyList(ListView):
+  model = Toy 
+
+class ToyDetail(DetailView):
+   model = Toy
+
+class ToyUpdate(UpdateView):
+   model = Toy
+   fields = ['name', 'color']
+
+class ToyDelete(DeleteView):
+   model = Toy
+   success_url = reverse_lazy('toy-index')
+
+def associate_toy(request, cat_id, toy_id):
+   Cat.objects.get(id=cat_id).toys.add(toy_id)
+   return redirect('cat-detail', pk=cat_id)
+
+def remove_toy(request, cat_id, toy_id):
+  cat = Cat.objects.get(id=cat_id)
+  cat.toys.remove(toy_id)
+  return redirect('cat-detail', pk=cat_id)
+
