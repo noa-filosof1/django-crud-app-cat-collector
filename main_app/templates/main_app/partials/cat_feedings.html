@@ -11,6 +11,7 @@
     action="{% url 'add-feeding' cat.id %}"
     method="post"
     class="subsection-content"
+    autocomplete="off"
   >
     {% if cat.fed_for_today %}
     <p class="fed">{{cat.name}} has been fed all their meals for today!</p>

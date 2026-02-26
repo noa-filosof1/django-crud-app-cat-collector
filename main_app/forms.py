@@ -9,7 +9,9 @@ class FeedingForm(forms.ModelForm):
         widgets= {
             'date': forms.DateInput(
                 attrs={
-                    'type': 'date'
+                    'type': 'text',
+                    'placeholder': 'YYYY-MM-DD',
+                    'class': 'datepicker'
                 }
             )
         }
